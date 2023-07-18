@@ -1,4 +1,6 @@
 using Expenses.Data;
+using Expenses.Data.Repository;
+using Expenses.Data.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 // Add dbcontext
 builder.Services.AddDbContext<TrackerDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TrackerConnection")));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

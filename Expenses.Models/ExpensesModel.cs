@@ -18,24 +18,26 @@ namespace Expenses.Models
         [MaxLength(100)]
         [Column(TypeName = "varchar(100)")]
         public string Name { get; set; }
-        [Required]
+       
         [DisplayName("Expense Description")]
         [MaxLength(200)]
         [Column(TypeName = "text")]
-        public string Descriptions { get; set; }
+        public string? Descriptions { get; set; }
         [Required]
         [DisplayName("Money Spent")]
         [MaxLength(100)]
         [Column(TypeName = "decimal(10,2)")]
-        public decimal MoneySpent { get; set; }
+        public decimal Amount { get; set; }
 
         [Required]
         [DisplayName("Expense Date")]
-        public DateTime ExpenseDate { get; set; }
+        public DateTime ExpenseDate { get; set; } = DateTime.Now;
 
         [Required]
-        [MaxLength(200)]
-        [Column(TypeName = "varchar(100)")]
-        public string Category { get; set; }
+        [MaxLength(11)]
+        [Column(TypeName = "int")]
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
     }
 }

@@ -1,0 +1,69 @@
+﻿
+
+@model Category;
+@{
+    ViewData["Title"] = "Create";
+    ViewData["pageTitle"] = Model.Id == 0 ? "Create Category" : "Edit Category";
+}
+<div class="row">
+    <div class="col-md-7">
+        <div class="card shadow" style="background-color:#212b36">
+            <div class="card-body p-3">
+                <form method="POST">
+                    <input asp-for="@Model.Id" hidden />
+                    <div class="form-group">
+                        <label asp-for="Type" class="form-label mt-2"></label>
+                        <br>
+                        <div class="btn-group w-100 mb-3 mt-1">
+                            <input type="radio" class="btn-check" name="Type" value="Expense" id="success-outlined" autocomplete="off" checked="@(Model.Type=="Expense")">
+                            <label class="btn btn-outline-success" for="success-outlined">Expense</label>
+
+                            <input type="radio" class="btn-check" name="Type" value="Income" id="info-outlined" autocomplete="off" checked="@(Model.Type=="Income")">
+                            <label class="btn btn-outline-info" for="info-outlined">Income</label>
+                        </div>
+                        <span class="text-danger" asp-validation-for="Type"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="form-label mt-2"></label>
+                        <input type"text" asp-for="Name" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon" class="form-label mt-2"></label>
+                        <input type"text" asp-for="Icon" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Icon"></span>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            @if (@Model.Id == 0)
+                            {
+                                <button type="submit" class="btn btn-outline-info btn-rounded">Create</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-outline-success btn-rounded">Update</button>
+                            }
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <a asp-area="" asp-controller="Category" asp-action="Index" class="btn btn-outline-warning">Back ot List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center" style="background-color:#212b10">
+            <i class="fa-solid fa-headphones fa-5x"></i>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+ }

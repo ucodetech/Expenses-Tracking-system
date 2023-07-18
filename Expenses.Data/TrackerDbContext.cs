@@ -14,6 +14,7 @@ namespace Expenses.Data
         {
             
         }
-        public DbSet<ExpensesModel> expenses { get; set; }
+        public DbSet<ExpensesModel> Expenses { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

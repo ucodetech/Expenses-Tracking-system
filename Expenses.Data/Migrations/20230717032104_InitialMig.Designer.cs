@@ -53,7 +53,7 @@ namespace Expenses.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Expenses.Models.ExpensesModel", b =>
+            modelBuilder.Entity("Expenses.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace Expenses.Data.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("Expenses.Models.ExpensesModel", b =>
+            modelBuilder.Entity("Expenses.Models.Transaction", b =>
                 {
                     b.HasOne("Expenses.Models.Category", "Category")
                         .WithMany()

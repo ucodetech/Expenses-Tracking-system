@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Expenses.Models.ViewModels
 {
-    public class ExpensesVM
+    public class TransactionVM
     {
-        public ExpensesModel ExpensesModel { get; set; }
+        public Transaction Transaction { get; set; }
         public IEnumerable<SelectListItem> CategoryList { get; set; }
     }
 }

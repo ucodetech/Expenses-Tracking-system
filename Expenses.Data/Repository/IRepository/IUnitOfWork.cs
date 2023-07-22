@@ -9,7 +9,7 @@ namespace Expenses.Data.Repository.IRepository
    
     public interface IUnitOfWork
     {
-        IExpensesRepository Expenses { get; }
+        ITransactionRepository Transaction { get; }
         ICategoryRepository Category { get; }
         void Save();
     }

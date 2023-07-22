@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Expenses.Data.Migrations
 {
     [DbContext(typeof(TrackerDbContext))]
-    [Migration("20230717123941_UpdateIcon")]
-    partial class UpdateIcon
+    [Migration("20230719114621_transactionTableUpdate")]
+    partial class transactionTableUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,7 +62,6 @@ namespace Expenses.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasMaxLength(100)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("CategoryId")

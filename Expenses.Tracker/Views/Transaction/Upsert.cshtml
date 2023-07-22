@@ -1,16 +1,16 @@
 ﻿
 
-@model ExpensesVM;
+@model TransactionVM;
 @{
-    ViewData["Title"] = "Create";
-    ViewData["pageTitle"] =@Model.ExpensesModel.Id == 0 ? "Create Expense" : "Edit Expense";
+    ViewData["Title"] = @Model.Transaction.Id == 0 ? "Create" : "Update";
+    ViewData["pageTitle"] =@Model.Transaction.Id == 0 ? "Create Transaction" : "Edit Transaction";
 }
 <div class="row">
     <div class="col-md-7">
         <div class="card shadow" style="background-color:#212b36">
             <div class="card-body p-3">
                 <form method="POST">
-                    <input asp-for="ExpensesModel.Id" hidden />
+                    <input asp-for="Transaction.Id" hidden />
                    
                    @* <div class="form-group">
                         <label asp-for="Type" class="form-label mt-2"></label>
@@ -25,37 +25,35 @@
                         <span class="text-danger" asp-validation-for="Type"></span>
                     </div>*@
                     <div class="form-group">
-                        <label asp-for="ExpensesModel.ExpenseDate" class="form-label mt-2"></label>
-                        <input asp-for="ExpensesModel.ExpenseDate" class="form-control" />
-                        <span class="text-danger" asp-validation-for="ExpensesModel.ExpenseDate"></span>
+                        <label asp-for="Transaction.ExpenseDate" class="form-label mt-2"></label>
+                        <input asp-for="Transaction.ExpenseDate" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Transaction.ExpenseDate"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ExpensesModel.CategoryId" class="form-label mt-2"> Category</label>
-                        <select asp-asp-items="@Model.CategoryList" asp-for="ExpensesModel.CategoryId" class="form-select"></select>
-                        <span class="text-danger" asp-validation-for="ExpensesModel.CategoryId"></span>
+                        <label asp-for="Transaction.CategoryId" class="form-label mt-2"> Category</label>
+                        <select  asp-for="@Model.Transaction.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                           <option value="">--Select Category --</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="Transaction.CategoryId"></span>
                     </div>
+                    
+                   
                     <div class="form-group">
-                        <label asp-for="ExpensesModel.Name" class="form-label mt-2"></label>
-                        <input  asp-for="ExpensesModel.Name" class="form-control" />
-                        <span class="text-danger" asp-validation-for="ExpensesModel.Name"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ExpensesModel.Amount" class="form-label mt-2"></label>
-                        <input asp-for="ExpensesModel.Amount" class="form-control" />
-                        <span class="text-danger" asp-validation-for="ExpensesModel.Amount"></span>
+                        <label asp-for="Transaction.Amount" class="form-label mt-2"></label>
+                        <input asp-for="Transaction.Amount" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Transaction.Amount"></span>
                     </div>
                    
                    
                     <div class="form-group">
-                        <label asp-for="ExpensesModel.Descriptions" class="form-label mt-2"></label>
-                        <textarea asp-for="ExpensesModel.Descriptions" rows="5" class="form-control"></textarea>
-                        
+                        <label asp-for="Transaction.Descriptions" class="form-label mt-2"></label>
+                        <textarea asp-for="Transaction.Descriptions" rows="5" class="form-control"></textarea>
                     </div>
 
 
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            @if (@Model.ExpensesModel.Id == 0)
+                            @if (@Model.Transaction.Id == 0)
                             {
                                 <button type="submit" class="btn btn-outline-info btn-rounded">Create</button>
                             }
@@ -65,7 +63,7 @@
                             }
                         </div>
                         <div class="col-md-6 text-end">
-                            <a asp-area="" asp-controller="Expenses" asp-action="Index" class="btn btn-outline-warning">Back ot List</a>
+                            <a asp-area="" asp-controller="Transaction" asp-action="Index" class="btn btn-outline-warning">Back ot List</a>
                         </div>
                     </div>
                 </form>

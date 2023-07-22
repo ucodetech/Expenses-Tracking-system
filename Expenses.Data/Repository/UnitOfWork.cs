@@ -10,12 +10,12 @@ namespace Expenses.Data.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TrackerDbContext _db;
-        public IExpensesRepository Expenses { get; private set; }
+        public ITransactionRepository Transaction { get; private set; }
         public ICategoryRepository Category { get; private set; }
         public UnitOfWork(TrackerDbContext db)
         {
             _db = db;
-            Expenses = new ExpensesRepository(_db);
+            Transaction = new TransactionRepository(_db);
             Category = new CategoryRepository(_db);
         }
 

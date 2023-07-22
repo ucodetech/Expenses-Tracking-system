@@ -1,0 +1,234 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-md-12">     
+        <div class="widget chart  shadow p-5">
+            <h3 class="text-center">Coming soon</h3>
+            <form method="post" asp-controller="Dashboard" asp-action="Index">
+               <div class="row">
+                 <div class="form-group col-md-6">
+                    <label class="form-label">Start Date</label>
+                    <input type="date" name="StartDate" class="form-control">
+                </div>
+                 <div class="form-group col-md-6">
+                     <label class="form-label">End Date</label>
+                    <input type="date" name="EndDate" class="form-control">
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <input type="submit" value="Report" class="btn btn-outline-info">
+                    </div>
+                     <div class="col-md-6 text-end">
+                        <input type="reset" value="Clear" class="btn btn-outline-warning">
+                    </div>
+                </div>
+               </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row mb-4">
+    <div class="col-md-4">     
+        <div class="d-flex flex-row widget summary income shadow">
+            <div class="d-flex flex-column justify-content-center p-4">
+            <i class="fas fa-dollar-sign fa-3x"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3 p-5">
+                <span class="lead">
+                    Total Income
+                </span>
+                <h1 class="display-10 fw-bold">@ViewBag.TotalIncome</h1>
+            </div>
+        </div>
+    </div> 
+
+    <div class="col-md-4">     
+        <div class="d-flex flex-row widget summary expense shadow">
+            <div class="d-flex flex-column justify-content-center p-4">
+            <i class="fas fa-dollar-sign fa-3x"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3 p-5">
+                <span class="lead">
+                    Total Expense
+                </span>
+                <h1 class="display-8 fw-bold">@ViewBag.TotalExpense</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">     
+        <div class="d-flex flex-row widget summary balance shadow">
+            <div class="d-flex flex-column justify-content-center p-4">
+                <i class="fas fa-dollar-sign fa-3x"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3 p-5">
+                <span class="lead">
+                    Balance
+                </span>
+                <h1 class="display-8 fw-bold">@ViewBag.Balance</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row mb-4">
+        <div class="col-md-5">
+            <div class="widget chart" >
+                <div class="p-4">
+                    <h5 class="fw-bold">Expense By Category</h5>
+                </div>
+                <ejs-accumulationchart id="doughtnutchart" background="#1a222b">
+                    <e-accumulation-series-collection>
+                        <e-accumulation-series dataSource="@ViewBag.DoughnutData" 
+                                        xName="cateTitleWithIcon" yName="amount" innerRadius="60%" legendShape="Circle"> 
+                            <e-accumulationseries-datalabel name="formattedAmount" visible>
+
+                            </e-accumulationseries-datalabel>
+                        </e-accumulation-series>
+                    </e-accumulation-series-collection>
+                    <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
+                        <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                    </e-accumulationchart-legendsettings>
+                    <e-accumulationchart-tooltipsettings enable>
+                        <e-tooltipsettings-textstyle color="#fff"></e-tooltipsettings-textstyle>
+                    </e-accumulationchart-tooltipsettings>
+                </ejs-accumulationchart>
+                
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="widget chart">
+                <div class="p-4">
+                    <h5 class="fw-bold">Income Vs Expense </h5>
+                </div>
+              
+                <ejs-chart id="splinechart" background="#1a222b" palettes=@(new string[] {"#54ffa9", "#ffe91a"})>
+                <e-chart-primaryxaxis valueType="Category">
+                    <e-majorgridlines width="0"></e-majorgridlines>
+                </e-chart-primaryxaxis>
+                <e-chart-primaryyaxis>
+                    <e-majorgridlines width="1" color="#32414d" dashArray="3,5"></e-majorgridlines>
+                </e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                     <e-chartarea-border width="0"></e-chartarea-border>
+                </e-chart-chartarea>
+                 <e-series-collection>
+                    <e-series dataSource="@ViewBag.SplineChartData" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline" 
+                    xName="day" yName="income" name="Income" width="3"> </e-series>
+                    <e-series dataSource="@ViewBag.SplineChartData" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Spline" 
+                    xName="day" yName="expense" name="Expense" width="3"> </e-series>
+                </e-series-collection>
+                 <e-chart-legendsettings position="Top" alignment="Far" toggleVisiblity="false">
+                     <e-legendsettings-textstyle color="#fff" size="1rem" ></e-legendsettings-textstyle>
+                  </e-chart-legendsettings>
+                   <e-chart-tooltipsettings enable shared>
+                        <e-tooltipsettings-textstyle color="#fff"></e-tooltipsettings-textstyle>
+                    </e-chart-tooltipsettings>
+                </ejs-chart>
+            </div>
+           
+        </div>
+    </div>
+  <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="widget chart" >
+                <div class="p-4">
+                    <h5 class="fw-bold">Recent Transactions</h5>
+                </div>
+                <div class="table-responsive shadow-lg">
+                <table class="table border-none table-hover table-condensed" id="expensesTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                            @foreach (var exp in @ViewBag.RecentTransactions)
+                            {
+                                <tr>
+                                    
+                                     <td width="40%">
+                                      
+                                         @exp.Category.Icon  @exp.Category.Name
+                                        
+                                    </td>
+                                     <td  width="30%" class="text-left">
+                                        @exp.ExpenseDate.ToString("ddd-MMM-yyyy")
+                                    </td>
+                                    <td  width="20%" style="text-align:right;">
+                                        @if(@exp.Category.Type == "Expense"){
+                                          @(String.Format("{0} {1}", "- ", @exp.Amount.ToString("C0")));
+                                        }else{
+                                          @(String.Format("{0} {1}", "+ ", @exp.Amount.ToString("C0")));
+                                        }
+                                       
+                                    </td>
+                                    
+                                    <td>
+                                        <div class="btn-group">
+                                                       
+                                                <a data-url="/transaction/delete?id=@exp.Id" id="deleteExpensebtn" class="text-danger" style="cursor:pointer"><i class="bi bi-trash"></i></a>
+
+                                            </div>
+                                    </td>
+                                </tr>
+                            }
+                   </tbody>
+                   
+                </table>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="widget h-100" >
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <span></span> <i class="fas fa-home fa-3x"></i></span>  Widget</span>
+                </div>
+            </div>
+        </div>
+    <div>
+
+
+@section Scripts {
+   <script>
+          $('body').on('click', '#deleteExpensebtn', function (e) {
+                e.preventDefault();
+                let url = $(this).data('url');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: "DELETE",
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    toastr.error(data.error);
+                                } else {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        data.msg,
+                                        'success'
+                                    )
+                                  location.reload()
+                                }
+                            }
+                        });
+
+
+                    }
+                });
+            }) 
+    
+   </script>
+}

@@ -2,7 +2,7 @@
 
 @model Category;
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] =  Model.Id == 0 ? "Create" : "Update";
     ViewData["pageTitle"] = Model.Id == 0 ? "Create Category" : "Edit Category";
 }
 <div class="row">

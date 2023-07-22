@@ -50,7 +50,7 @@ namespace Expenses.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Expenses.Models.ExpensesModel", b =>
+            modelBuilder.Entity("Expenses.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,33 +59,25 @@ namespace Expenses.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasMaxLength(100)
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("CategoryId")
-                        .HasMaxLength(11)
                         .HasColumnType("int");
 
                     b.Property<string>("Descriptions")
-                        .HasMaxLength(200)
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("ExpenseDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Expenses.Models.ExpensesModel", b =>
+            modelBuilder.Entity("Expenses.Models.Transaction", b =>
                 {
                     b.HasOne("Expenses.Models.Category", "Category")
                         .WithMany()

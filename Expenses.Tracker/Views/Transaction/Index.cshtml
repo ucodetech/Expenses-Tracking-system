@@ -1,0 +1,118 @@
+﻿@model List<Transaction>;
+@{
+    ViewData["Title"] = "Transaction";
+    ViewData["pageTitle"] = "Transactions";
+    ViewData["PageActionText"] = "+ New Transaction";
+    ViewData["PageActionUrl"] = "/Transaction/Upsert";
+
+}
+<div class="row">
+    <div class="col-md-7">
+        <div class="card-body p-1" style="background-color:#212b36">
+            <div class="table-responsive shadow-lg">
+                <table class="table border-none table-hover table-condensed" id="expensesTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                            @foreach (var exp in @Model)
+                            {
+                                <tr>
+                                    
+                                     <td width="40%">
+                                      
+                                         @exp.Category.Icon  @exp.Category.Name
+                                        
+                                    </td>
+                                     <td  width="30%" class="text-left">
+                                        @exp.ExpenseDate.ToString("ddd-MMM-yyyy")
+                                    </td>
+                                    <td  width="20%" style="text-align:right;">
+                                        @if(@exp.Category.Type == "Expense"){
+                                          @(String.Format("{0} {1}", "- ", @exp.Amount.ToString("C0")));
+                                        }else{
+                                          @(String.Format("{0} {1}", "+ ", @exp.Amount.ToString("C0")));
+                                        }
+                                       
+                                    </td>
+                                    
+                                    <td>
+                                        <div class="btn-group">
+                                                        <a href="/transaction/upsert?id=@exp.Id" class="text-success"><i class="bi bi-pencil"></i></a> &nbsp;&nbsp;
+                                                <a data-url="/transaction/delete?id=@exp.Id" id="deleteExpensebtn" class="text-danger" style="cursor:pointer"><i class="bi bi-trash"></i></a>
+
+                                            </div>
+                                    </td>
+                                </tr>
+                            }
+                   </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center" style="background-color:#212b10">
+            <i class="fa-solid fa-headphones fa-5x"></i>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#expensesTable').DataTable();
+            
+             $('body').on('click', '#deleteExpensebtn', function (e) {
+                e.preventDefault();
+                let url = $(this).data('url');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: "DELETE",
+                            success: function (data) {
+                                if (data.code == 0) {
+                                    toastr.error(data.error);
+                                } else {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        data.msg,
+                                        'success'
+                                    )
+                                  location.reload()
+                                }
+                            }
+                        });
+
+
+                    }
+                });
+            }) 
+
+
+
+
+
+
+
+
+        });
+    </script>
+}

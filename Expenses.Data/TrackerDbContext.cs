@@ -10,11 +10,12 @@ namespace Expenses.Data
 {
     public class TrackerDbContext : DbContext
     {
+     
         public TrackerDbContext(DbContextOptions<TrackerDbContext> options) : base(options)
         {
             
         }
-        public DbSet<ExpensesModel> Expenses { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Category> Categories { get; set; }
     }
 }

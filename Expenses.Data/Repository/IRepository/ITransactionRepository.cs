@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Expenses.Data.Repository.IRepository
 {
-    public interface IExpensesRepository : IRepository<ExpensesModel>
+    public interface ITransactionRepository : IRepository<Transaction>
     {
-        IEnumerable<ExpensesModel> Search(string searchTerm);
-        void Update(ExpensesModel obj);
+        void Update(Transaction obj);
     }
 }

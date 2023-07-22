@@ -9,35 +9,29 @@ using System.Threading.Tasks;
 
 namespace Expenses.Models
 {
-    public class ExpensesModel
+    public class Transaction
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
-        [DisplayName("Expense Name")]
-        [MaxLength(100)]
-        [Column(TypeName = "varchar(100)")]
-        public string Name { get; set; }
-       
-        [DisplayName("Expense Description")]
-        [MaxLength(200)]
-        [Column(TypeName = "text")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
         public string? Descriptions { get; set; }
+       
         [Required]
-        [DisplayName("Money Spent")]
-        [MaxLength(100)]
+        [Range(1, int.MaxValue, ErrorMessage = "Amount should be greater thatn 0")]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
 
         [Required]
-        [DisplayName("Expense Date")]
+        [DisplayName("Transaction Date")]
         public DateTime ExpenseDate { get; set; } = DateTime.Now;
 
-        [Required]
-        [MaxLength(11)]
-        [Column(TypeName = "int")]
-        public int CategoryId { get; set; }
+      
+       
 
-        public Category Category { get; set; }
     }
 }
